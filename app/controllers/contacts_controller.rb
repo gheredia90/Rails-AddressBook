@@ -13,9 +13,14 @@ class ContactsController < ApplicationController
 	end
 
 	def create
-		@contact = Contact.new(contact_params)
+		@contact = Contact.new(
+	      :name => params[:contact][:name],
+	      :address => params[:contact][:address],
+	      :phone_number => params[:contact][:phone_number],
+	      :email => params[:contact][:email]
+	    )
 		@contact.save
-		redirect_to contacts_path
+		redirect_to("/contacts")
 	end
 
 	def destroy
@@ -37,7 +42,7 @@ class ContactsController < ApplicationController
 
 	private
 	def contact_params
-		params.require(:Contact).permit(:title, :price)
+		params.require(:contact).permit(:name, :address, :phone_number, :email)
 	end	
 
 end
